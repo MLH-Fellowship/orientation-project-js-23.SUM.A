@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="App">
       <h1>Resume Builder</h1>
@@ -19,7 +21,7 @@ const Home = () => {
       <div className="resumeSection">
         <h2>Skills</h2>
         <p>Skill Placeholder</p>
-        <button>Add Skill</button>
+        <button onClick={() => navigate("/add-skill")}>Add Skill</button>
         <br></br>
       </div>
       <br></br>
