@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { skillImage } from "../service";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddSkill = () => {
+  const navigate = useNavigate();
   const [selectedSkill, setSelectedSkill] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     logo: "",
-    proficiency: "",
+    proficiency: "0-1 Years",
+  });
+  const [errorData, setErrorData] = useState({
+    name: false,
+    logo: false,
+    proficiency: false,
   });
 
   const handleFormData = (event) => {
@@ -20,16 +28,25 @@ const AddSkill = () => {
     }));
   };
 
-  console.log(formData);
-
   const handleAddSkill = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://127.0.0.1:5000/resume/skill", { ...formData })
-      .then((res) => {
-        console.log(res.data, "Data");
-      })
-      .catch((err) => console.log(err?.message));
+
+    if (formData?.logo && formData?.name && formData?.proficiency) {
+      axios
+        .post("http://127.0.0.1:5000/resume/skill", { ...formData })
+        .then((res) => {
+          console.log(res.data);
+          navigate("/");
+        })
+        .catch((err) => toast.error(err?.message));
+    } else {
+      if (formData?.logo === "")
+        setErrorData((prev) => ({ ...prev, logo: true }));
+      if (formData?.name === "")
+        setErrorData((prev) => ({ ...prev, name: true }));
+      if (formData?.proficiency === "")
+        setErrorData((prev) => ({ ...prev, proficiency: true }));
+    }
   };
   return (
     <AddSkillContainer>
@@ -41,9 +58,15 @@ const AddSkill = () => {
             type="text"
             name="name"
             value={formData?.name}
-            onChange={handleFormData}
+            onChange={(e) => {
+              handleFormData(e);
+              setErrorData((prev) => ({ ...prev, name: false }));
+            }}
             placeholder="Enter skill name"
           />
+          {errorData?.name && (
+            <span className="err">Field can not be empty</span>
+          )}
         </div>
 
         <div className="form-input">
@@ -51,13 +74,19 @@ const AddSkill = () => {
           <select
             defaultValue="0-1 Years"
             name="proficiency"
-            onChange={handleFormData}
+            onChange={(e) => {
+              handleFormData(e);
+              setErrorData((prev) => ({ ...prev, proficiency: false }));
+            }}
           >
             <option value="0-1 years"> 0-1 Years</option>
             <option value="1-2 years"> 1-2 Years</option>
             <option value="2-3 years"> 2-3 Years</option>
             <option value="4+ years"> 4+ Years</option>
           </select>
+          {errorData?.proficiency && (
+            <span className="err">Field can not be empty</span>
+          )}
         </div>
 
         <div className="form-input">
@@ -73,8 +102,9 @@ const AddSkill = () => {
                   setSelectedSkill(id);
                   setFormData((prevState) => ({
                     ...prevState,
-                    proficiency: name,
+                    logo: name,
                   }));
+                  setErrorData((prev) => ({ ...prev, logo: false }));
                 }}
               >
                 {" "}
@@ -87,6 +117,9 @@ const AddSkill = () => {
               </div>
             ))}
           </div>
+          {errorData?.logo && (
+            <span className="err skill-err">Select a skill Logo</span>
+          )}
         </div>
 
         <button type="submit" className="btn-skill">
@@ -108,6 +141,7 @@ const AddSkillContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 2rem;
 
   h1 {
     font-size: 2rem;
@@ -118,7 +152,7 @@ const AddSkillContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    width: 100%;
+    width: 90%;
 
     .form-input {
       display: flex;
@@ -129,6 +163,15 @@ const AddSkillContainer = styled.section`
         font-size: 1.2rem;
         font-weight: 600;
         color: #fff;
+      }
+
+      .skill-err {
+        margin-top: 1rem;
+      }
+
+      .err {
+        color: #cc0000;
+        font-size: 1.2rem;
       }
 
       input[type="text"],
@@ -148,7 +191,8 @@ const AddSkillContainer = styled.section`
       }
 
       .skill-container {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
         gap: 2rem;
 
         .selected-skill {
