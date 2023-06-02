@@ -1,21 +1,50 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { skillImage } from "../service";
+import axios from "axios";
 
 const AddSkill = () => {
   const [selectedSkill, setSelectedSkill] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    logo: "",
+    proficiency: "",
+  });
+
+  const handleFormData = (event) => {
+    let name = event.target.name;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: event.target.value,
+    }));
+  };
+
+  console.log(formData);
+
+  const handleAddSkill = async () => {};
   return (
     <AddSkillContainer>
       <h1>Add Skills</h1>
-      <form className="form-control">
+      <form className="form-control" onSubmit={() => handleAddSkill()}>
         <div className="form-input">
           <label htmlFor="name">Skill</label>
-          <input type="text" name="name" placeholder="Enter skill name" />
+          <input
+            type="text"
+            name="name"
+            value={formData?.name}
+            onChange={handleFormData}
+            placeholder="Enter skill name"
+          />
         </div>
 
         <div className="form-input">
           <label for="name">Select proficiency</label>
-          <select defaultValue="0-1 Years">
+          <select
+            defaultValue="0-1 Years"
+            name="proficiency"
+            onChange={handleFormData}
+          >
             <option value="0-1 years"> 0-1 Years</option>
             <option value="1-2 years"> 1-2 Years</option>
             <option value="2-3 years"> 2-3 Years</option>
@@ -32,9 +61,20 @@ const AddSkill = () => {
                   selectedSkill === id ? "selected-skill skill" : "skill"
                 }
                 key={id}
-                onClick={() => setSelectedSkill(id)}
+                onClick={() => {
+                  setSelectedSkill(id);
+                  setFormData((prevState) => ({
+                    ...prevState,
+                    proficiency: name,
+                  }));
+                }}
               >
                 {" "}
+                <span
+                  style={{ display: selectedSkill === id ? "none" : "block" }}
+                >
+                  {name}
+                </span>
                 <img src={image} alt={name} />
               </div>
             ))}
@@ -55,7 +95,7 @@ const AddSkillContainer = styled.section`
   width: 100%;
   max-width: 545px;
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +109,7 @@ const AddSkillContainer = styled.section`
   .form-control {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     width: 100%;
 
     .form-input {
@@ -79,6 +119,7 @@ const AddSkillContainer = styled.section`
 
       label {
         font-size: 1.2rem;
+        font-weight: 600;
         color: #fff;
       }
 
@@ -100,7 +141,7 @@ const AddSkillContainer = styled.section`
 
       .skill-container {
         display: flex;
-        gap: 1rem;
+        gap: 2rem;
 
         .selected-skill {
           border: 2px solid #fff;
@@ -112,8 +153,19 @@ const AddSkillContainer = styled.section`
         }
 
         .skill {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.4rem;
+          align-items: center;
           width: 55px;
           height: 55px;
+          margin-top: 1rem;
+
+          span {
+            color: #fff;
+            font-weight: 500;
+          }
 
           img {
             width: 100%;
