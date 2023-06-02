@@ -22,11 +22,19 @@ const AddSkill = () => {
 
   console.log(formData);
 
-  const handleAddSkill = async () => {};
+  const handleAddSkill = async (event) => {
+    event.preventDefault();
+    axios
+      .post("http://127.0.0.1:5000/resume/skill", { ...formData })
+      .then((res) => {
+        console.log(res.data, "Data");
+      })
+      .catch((err) => console.log(err?.message));
+  };
   return (
     <AddSkillContainer>
       <h1>Add Skills</h1>
-      <form className="form-control" onSubmit={() => handleAddSkill()}>
+      <form className="form-control" onSubmit={(e) => handleAddSkill(e)}>
         <div className="form-input">
           <label htmlFor="name">Skill</label>
           <input
@@ -39,7 +47,7 @@ const AddSkill = () => {
         </div>
 
         <div className="form-input">
-          <label for="name">Select proficiency</label>
+          <label htmlFor="name">Select proficiency</label>
           <select
             defaultValue="0-1 Years"
             name="proficiency"
