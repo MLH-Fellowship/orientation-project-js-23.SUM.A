@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { skillImage } from "../service";
 
 const AddSkill = () => {
+  const [selectedSkill, setSelectedSkill] = useState("");
   return (
     <AddSkillContainer>
       <h1>Add Skills</h1>
       <form className="form-control">
         <div className="form-input">
-          <label for="name">Skill</label>
+          <label htmlFor="name">Skill</label>
           <input type="text" name="name" placeholder="Enter skill name" />
         </div>
 
@@ -19,6 +21,24 @@ const AddSkill = () => {
             <option value="2-3 years"> 2-3 Years</option>
             <option value="4+ years"> 4+ Years</option>
           </select>
+        </div>
+
+        <div className="form-input">
+          <label>Select Logo</label>
+          <div className="skill-container">
+            {skillImage.map(({ name, image, id }) => (
+              <div
+                className={
+                  selectedSkill === id ? "selected-skill skill" : "skill"
+                }
+                key={id}
+                onClick={() => setSelectedSkill(id)}
+              >
+                {" "}
+                <img src={image} alt={name} />
+              </div>
+            ))}
+          </div>
         </div>
 
         <button type="submit" className="btn-skill">
@@ -77,6 +97,32 @@ const AddSkillContainer = styled.section`
           border: none;
         }
       }
+
+      .skill-container {
+        display: flex;
+        gap: 1rem;
+
+        .selected-skill {
+          border: 2px solid #fff;
+          padding: 5px;
+          border-radius: 8px;
+          box-shadow: rgba(240, 46, 170, 0.4) 0px 5px,
+            rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px,
+            rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+        }
+
+        .skill {
+          width: 55px;
+          height: 55px;
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .skill-container {
     }
     .btn-skill {
       border: none;
