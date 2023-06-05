@@ -31,6 +31,45 @@ const AddExperiencePage = () => {
     setExperience(defaultValues);
   };
 
+  const renderMonthOptions = () => {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return months.map((month) => (
+      <option key={month} value={month}>
+        {month}
+      </option>
+    ));
+  };
+
+  const renderYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 100;
+    const renderedYearOptions = [];
+
+    for (let year = currentYear; year >= startYear; year--) {
+      renderedYearOptions.push(
+        <option key={year} value={year}>
+          {year}
+        </option>
+      );
+    }
+
+    return renderedYearOptions;
+  };
+
   return (
     <div>
       <h2>Add Experience</h2>
@@ -62,7 +101,7 @@ const AddExperiencePage = () => {
             onChange={handleChange}
           >
             <option value="">Month</option>
-            {/* Render options for months */}
+            {renderMonthOptions()}
           </select>
           <select
             name="startYear"
@@ -70,7 +109,7 @@ const AddExperiencePage = () => {
             onChange={handleChange}
           >
             <option value="">Year</option>
-            {/* Render options for years */}
+            {renderYearOptions()}
           </select>
         </label>
         <label>
@@ -81,7 +120,7 @@ const AddExperiencePage = () => {
             onChange={handleChange}
           >
             <option value="">Month</option>
-            {/* Render options for months */}
+            {renderMonthOptions()}
           </select>
           <select
             name="endYear"
@@ -89,7 +128,7 @@ const AddExperiencePage = () => {
             onChange={handleChange}
           >
             <option value="">Year</option>
-            {/* Render options for years */}
+            {renderYearOptions()}
           </select>
         </label>
 
