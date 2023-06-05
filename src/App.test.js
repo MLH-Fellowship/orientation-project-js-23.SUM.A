@@ -23,7 +23,7 @@ describe("Test Add Skill page", () => {
       </BrowserRouter>
     );
 
-    const textElement = screen.getAllByText("Select Logo");
+    const textElement = screen.getByText("Select Logo");
     expect(textElement).toBeInTheDocument();
   });
 });
