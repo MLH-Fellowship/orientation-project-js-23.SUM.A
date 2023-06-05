@@ -13,12 +13,25 @@ const AddExperiencePage = () => {
   };
 
   const [experience, setExperience] = useState(defaultValues);
+  const [isCurrentlyWorking, setIsCurrentlyWorking] = useState(false);
 
   const handleChange = (e) => {
     setExperience((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleToggle = () => {
+    setIsCurrentlyWorking(!isCurrentlyWorking);
+    if (!isCurrentlyWorking) {
+      // Reset end date fields after toggling to currently working
+      setExperience((prevState) => ({
+        ...prevState,
+        endMonth: "",
+        endYear: "",
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -29,6 +42,7 @@ const AddExperiencePage = () => {
 
     // reset values
     setExperience(defaultValues);
+    setIsCurrentlyWorking(false);
   };
 
   const renderMonthOptions = () => {
@@ -94,6 +108,15 @@ const AddExperiencePage = () => {
         </label>
 
         <label>
+          <input
+            type="checkbox"
+            checked={isCurrentlyWorking}
+            onChange={handleToggle}
+          />{" "}
+          I am currently working in this role
+        </label>
+
+        <label>
           Start Date:
           <select
             name="startMonth"
@@ -118,6 +141,7 @@ const AddExperiencePage = () => {
             name="endMonth"
             value={experience.endMonth}
             onChange={handleChange}
+            disabled={isCurrentlyWorking}
           >
             <option value="">Month</option>
             {renderMonthOptions()}
@@ -126,6 +150,7 @@ const AddExperiencePage = () => {
             name="endYear"
             value={experience.endYear}
             onChange={handleChange}
+            disabled={isCurrentlyWorking}
           >
             <option value="">Year</option>
             {renderYearOptions()}
