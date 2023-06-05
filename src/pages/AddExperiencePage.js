@@ -1,3 +1,4 @@
+import "./AddExperiencePage.css";
 import { useState } from "react";
 
 const AddExperiencePage = () => {
@@ -83,10 +84,10 @@ const AddExperiencePage = () => {
 
   const renderYearOptions = () => {
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 100;
     const renderedYearOptions = [];
 
-    for (let year = currentYear; year >= startYear; year--) {
+    for (let i = 0; i <= 100; i++) {
+      const year = currentYear - i;
       renderedYearOptions.push(
         <option key={year} value={year}>
           {year}
@@ -98,11 +99,11 @@ const AddExperiencePage = () => {
   };
 
   return (
-    <div>
+    <div className="experience__form">
       <h2>Add Experience</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Title:
+          Title
           <input
             type="text"
             name="title"
@@ -111,7 +112,7 @@ const AddExperiencePage = () => {
           />
         </label>
         <label>
-          Company:
+          Company
           <input
             type="text"
             name="company"
@@ -119,59 +120,60 @@ const AddExperiencePage = () => {
             onChange={handleChange}
           />
         </label>
-
         <label>
           <input
             type="checkbox"
             checked={isCurrentlyWorking}
             onChange={handleToggle}
-          />{" "}
+          />
           I am currently working in this role
         </label>
-
         <label>
-          Start Date:
-          <select
-            name="startMonth"
-            value={experience.startMonth}
-            onChange={handleChange}
-          >
-            <option value="">Month</option>
-            {renderMonthOptions()}
-          </select>
-          <select
-            name="startYear"
-            value={experience.startYear}
-            onChange={handleChange}
-          >
-            <option value="">Year</option>
-            {renderYearOptions()}
-          </select>
+          Start Date
+          <fieldset>
+            <select
+              name="startMonth"
+              value={experience.startMonth}
+              onChange={handleChange}
+            >
+              <option value="">Month</option>
+              {renderMonthOptions()}
+            </select>
+            <select
+              name="startYear"
+              value={experience.startYear}
+              onChange={handleChange}
+            >
+              <option value="">Year</option>
+              {renderYearOptions()}
+            </select>
+          </fieldset>
         </label>
         <label>
-          End Date:
-          <select
-            name="endMonth"
-            value={experience.endMonth}
-            onChange={handleChange}
-            disabled={isCurrentlyWorking}
-          >
-            <option value="">Month</option>
-            {renderMonthOptions()}
-          </select>
-          <select
-            name="endYear"
-            value={experience.endYear}
-            onChange={handleChange}
-            disabled={isCurrentlyWorking}
-          >
-            <option value="">Year</option>
-            {renderYearOptions()}
-          </select>
+          End Date
+          <fieldset>
+            <select
+              name="endMonth"
+              value={experience.endMonth}
+              onChange={handleChange}
+              disabled={isCurrentlyWorking}
+            >
+              <option value="">Month</option>
+              {renderMonthOptions()}
+            </select>
+            <select
+              name="endYear"
+              value={experience.endYear}
+              onChange={handleChange}
+              disabled={isCurrentlyWorking}
+            >
+              <option value="">Year</option>
+              {renderYearOptions()}
+            </select>
+          </fieldset>
         </label>
-
         <label>
-          Description:
+          Description
           <textarea
             name="description"
             value={experience.description}
@@ -179,7 +181,7 @@ const AddExperiencePage = () => {
           />
         </label>
         <label>
-          Logo:
+          Logo
           <input
             type="text"
             name="logo"
