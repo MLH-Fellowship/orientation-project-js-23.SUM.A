@@ -36,13 +36,26 @@ const AddExperiencePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("experience", experience);
+    const formattedExperience = formatExperience(experience);
 
     // make POST request to /resume/experience
 
     // reset values
     setExperience(defaultValues);
     setIsCurrentlyWorking(false);
+  };
+
+  const formatExperience = (experience) => {
+    return {
+      title: experience.title,
+      company: experience.company,
+      start_date: `${experience.startMonth} ${experience.startYear}`,
+      end_date: isCurrentlyWorking
+        ? "Present"
+        : `${experience.endMonth} ${experience.endYear}`,
+      description: experience.description,
+      logo: experience.logo,
+    };
   };
 
   const renderMonthOptions = () => {
