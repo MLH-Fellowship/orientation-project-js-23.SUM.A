@@ -1,4 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+
 import AddSkill from "./pages/AddSkill";
 import Home from "./pages/Home";
 import { BrowserRouter } from "react-router-dom";
@@ -12,6 +14,18 @@ describe("Home page test", () => {
     );
     const linkElement = screen.getByText("Export");
     expect(linkElement).toBeInTheDocument();
+  });
+
+  test("add skill button", async () => {
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+    const addSkillBtn = screen.getByTestId("addSkill");
+
+    expect(addSkillBtn).toBeInTheDocument();
+    fireEvent.click(addSkillBtn);
   });
 });
 

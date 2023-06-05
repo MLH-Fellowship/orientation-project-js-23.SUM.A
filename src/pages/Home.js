@@ -21,7 +21,9 @@ const Home = () => {
       <div className="resumeSection">
         <h2>Skills</h2>
         <p>Skill Placeholder</p>
-        <button onClick={() => navigate("/add-skill")}>Add Skill</button>
+        <button onClick={() => navigate("/add-skill")} data-testid="addSkill">
+          Add Skill
+        </button>
         <br></br>
       </div>
       <br></br>

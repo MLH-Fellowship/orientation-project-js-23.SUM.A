@@ -50,7 +50,7 @@ const AddSkill = () => {
   };
   return (
     <AddSkillContainer>
-      <h1>Add Skills</h1>
+      <h1 data-testid="headSkill">Add Skill Page</h1>
       <form className="form-control" onSubmit={(e) => handleAddSkill(e)}>
         <div className="form-input">
           <label htmlFor="name">Skill</label>
