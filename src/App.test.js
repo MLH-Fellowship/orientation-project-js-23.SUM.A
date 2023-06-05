@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-// import AddSkill from "./pages/AddSkill";
+import AddSkill from "./pages/AddSkill";
 import Home from "./pages/Home";
 import { BrowserRouter } from "react-router-dom";
 
@@ -12,5 +12,18 @@ describe("Home page test", () => {
     );
     const linkElement = screen.getByText("Export");
     expect(linkElement).toBeInTheDocument();
+  });
+});
+
+describe("Test Add Skill page", () => {
+  test("render Add screen page", () => {
+    render(
+      <BrowserRouter>
+        <AddSkill />
+      </BrowserRouter>
+    );
+
+    const textElement = screen.getAllByText("Select Logo");
+    expect(textElement).toBeInTheDocument();
   });
 });
