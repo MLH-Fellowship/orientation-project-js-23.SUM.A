@@ -39,7 +39,7 @@ const ResumeToExport = React.forwardRef((props, ref) => {
         <hr />
         {ctx.education.map((edu) => {
           return (
-            <li key={edu.title} className={classes["subsection"]}>
+            <li key={edu.course} className={classes["subsection"]}>
               <div className={classes["top-box"]}>
                 <h3 className={classes["title-subsection"]}>{edu.school}</h3>
                 <div className={classes["dates-box"]}>

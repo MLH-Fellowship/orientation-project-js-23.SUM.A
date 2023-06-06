@@ -58,12 +58,12 @@ export const ResumeContextProvider = (props) => {
       logo: "example-logo.png",
     },
     {
-      name: "JavaScript",
+      name: "Python",
       proficiency: "2-4 years",
       logo: "example-logo.png",
     },
     {
-      name: "JavaScript",
+      name: "C++",
       proficiency: "2-4 years",
       logo: "example-logo.png",
     },
