@@ -1,3 +1,67 @@
 .page {
+  box-sizing: border-box;
   padding: 40px 80px;
+  font-family: "sans-serif";
+  color: #2d2d2d;
+}
+
+.page * {
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  list-style: none;
+  margin-top: 25px;
+}
+
+.title-section {
+  font-weight: 500;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.section hr {
+  margin-top: 2px;
+}
+
+.subsection {
+  padding-left: 20px;
+  padding-top: 15px;
+}
+
+.top-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-subsection {
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-end;
+}
+
+.dates-box {
+  display: flex;
+  align-items: flex-end;
+}
+
+.date {
+  font-size: 16px;
+}
+
+.company {
+  font-size: 16px;
+  font-style: italic;
+  padding: 2.5px 0;
+}
+
+.description {
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+.skill {
+  padding-top: 5px;
 }
