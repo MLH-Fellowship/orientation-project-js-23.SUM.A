@@ -1,4 +1,5 @@
 import "./App.css";
+import PrintButton from "./components/PrintButton";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <br></br>
       </div>
       <br></br>
-      <button>Export</button>
+      <PrintButton />
     </div>
   );
 }
