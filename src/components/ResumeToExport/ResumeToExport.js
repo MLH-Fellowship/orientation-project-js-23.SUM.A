@@ -1,6 +1,6 @@
 import classes from "./ResumeToExport.module.css";
 import React, { useContext } from "react";
-import ResumeContext from "../store/resume-context";
+import ResumeContext from "../../store/resume-context";
 
 const ResumeToExport = React.forwardRef((props, ref) => {
   const ctx = useContext(ResumeContext);

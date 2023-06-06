@@ -1,4 +1,5 @@
 import React from "react";
+import PrintButton from "../components/ResumeToExport/PrintButton";
 
 const Home = () => {
   return (
@@ -23,7 +24,7 @@ const Home = () => {
         <br></br>
       </div>
       <br></br>
-      <button>Export</button>
+      <PrintButton />
     </div>
   );
 };
