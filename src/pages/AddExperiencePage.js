@@ -1,5 +1,6 @@
 import "./AddExperiencePage.css";
 import { useState } from "react";
+import axios from "axios";
 
 const AddExperiencePage = () => {
   const defaultValues = {
@@ -39,11 +40,17 @@ const AddExperiencePage = () => {
     e.preventDefault();
     const formattedExperience = formatExperience(experience);
 
-    // make POST request to /resume/experience
+    axios
+      .post("http://127.0.0.1:5000/resume/experience", formattedExperience)
+      .then((response) => {
+        console.log("Response:", response.data);
 
-    // reset values
-    setExperience(defaultValues);
-    setIsCurrentlyWorking(false);
+        setExperience(defaultValues);
+        setIsCurrentlyWorking(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const formatExperience = (experience) => {
