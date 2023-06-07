@@ -10,8 +10,8 @@ const PrintButton = () => {
   });
 
   return (
-    <div>
-      <button onClick={handlePrint}>Print</button>
+    <div className="hidden-div">
+      <button onClick={handlePrint}>Export</button>
       <div style={{ display: "none" }}>
         <ResumeToExport ref={componentRef} />
       </div>
