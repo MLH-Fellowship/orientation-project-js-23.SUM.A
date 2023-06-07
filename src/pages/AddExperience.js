@@ -1,8 +1,11 @@
-import "./AddExperience.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AddSectionContainer } from "../styles/AddSection.style.js";
 
-const AddExperiencePage = () => {
+const AddExperience = () => {
+  const navigate = useNavigate();
+
   const defaultValues = {
     title: "",
     company: "",
@@ -17,10 +20,10 @@ const AddExperiencePage = () => {
   const [experience, setExperience] = useState(defaultValues);
   const [isCurrentlyWorking, setIsCurrentlyWorking] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (event) => {
     setExperience((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -36,17 +39,15 @@ const AddExperiencePage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const formattedExperience = formatExperience(experience);
 
     axios
       .post("http://127.0.0.1:5000/resume/experience", formattedExperience)
       .then((response) => {
         console.log("Response:", response.data);
-
-        setExperience(defaultValues);
-        setIsCurrentlyWorking(false);
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -106,37 +107,39 @@ const AddExperiencePage = () => {
   };
 
   return (
-    <div className="experience__form">
-      <h2>Add Experience</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title
+    <AddSectionContainer>
+      <h1>Add Experience</h1>
+      <form className="form-control" onSubmit={handleSubmit}>
+        <div className="form-input">
+          <label>Title</label>
           <input
             type="text"
             name="title"
             value={experience.title}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Company
+        </div>
+        <div className="form-input">
+          <label>Company</label>
           <input
             type="text"
             name="company"
             value={experience.company}
             onChange={handleChange}
           />
-        </label>
-        <label>
+        </div>
+
+        <div className="form-input">
           <input
             type="checkbox"
             checked={isCurrentlyWorking}
             onChange={handleToggle}
           />
-          I am currently working in this role
-        </label>
-        <label>
-          Start Date
+          <label> I am currently working in this role</label>
+        </div>
+
+        <div className="form-input">
+          <label>Start Date</label>
           <fieldset>
             <select
               name="startMonth"
@@ -155,9 +158,10 @@ const AddExperiencePage = () => {
               {renderYearOptions()}
             </select>
           </fieldset>
-        </label>
-        <label>
-          End Date
+        </div>
+
+        <div className="form-input">
+          <label>End Date</label>
           <fieldset>
             <select
               name="endMonth"
@@ -178,28 +182,33 @@ const AddExperiencePage = () => {
               {renderYearOptions()}
             </select>
           </fieldset>
-        </label>
-        <label>
-          Description
+        </div>
+
+        <div className="form-input">
+          <label>Description</label>
           <textarea
             name="description"
             value={experience.description}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Logo
+        </div>
+
+        <div className="form-input">
+          <label>Logo</label>
           <input
             type="text"
             name="logo"
             value={experience.logo}
             onChange={handleChange}
           />
-        </label>
-        <button type="submit">Add Experience</button>
+        </div>
+
+        <button type="submit" className="btn-add">
+          Submit
+        </button>
       </form>
-    </div>
+    </AddSectionContainer>
   );
 };
 
-export default AddExperiencePage;
+export default AddExperience;
