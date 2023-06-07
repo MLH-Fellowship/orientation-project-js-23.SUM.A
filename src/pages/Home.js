@@ -21,7 +21,6 @@ const Home = () => {
         <h2>Education</h2>
         <p>Education Placeholder</p>
         <button>Add Education</button>
-
         <br></br>
       </div>
       <div className="resumeSection">
