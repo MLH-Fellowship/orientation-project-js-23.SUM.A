@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import AddSkill from "./pages/AddSkill";
 import Home from "./pages/Home";
+import AddSkill from "./pages/AddSkill";
+import AddExperience from "./pages/AddExperience";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Home page test", () => {
@@ -27,10 +28,22 @@ describe("Home page test", () => {
     expect(addSkillBtn).toBeInTheDocument();
     fireEvent.click(addSkillBtn);
   });
+
+  test("add experience button", async () => {
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+    const addExperienceBtn = screen.getByTestId("addExperience");
+
+    expect(addExperienceBtn).toBeInTheDocument();
+    fireEvent.click(addExperienceBtn);
+  });
 });
 
 describe("Test Add Skill page", () => {
-  test("render Add screen page", () => {
+  test("render Add Skill page", () => {
     render(
       <BrowserRouter>
         <AddSkill />
@@ -38,6 +51,19 @@ describe("Test Add Skill page", () => {
     );
 
     const textElement = screen.getByText("Select Logo");
+    expect(textElement).toBeInTheDocument();
+  });
+});
+
+describe("Test Add Experience page", () => {
+  test("render Add Experience page", () => {
+    render(
+      <BrowserRouter>
+        <AddExperience />
+      </BrowserRouter>
+    );
+
+    const textElement = screen.getByText("I am currently working in this role");
     expect(textElement).toBeInTheDocument();
   });
 });
