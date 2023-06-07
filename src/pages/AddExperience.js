@@ -130,12 +130,14 @@ const AddExperience = () => {
         </div>
 
         <div className="form-input">
-          <input
-            type="checkbox"
-            checked={isCurrentlyWorking}
-            onChange={handleToggle}
-          />
-          <label> I am currently working in this role</label>
+          <label>
+            <input
+              type="checkbox"
+              checked={isCurrentlyWorking}
+              onChange={handleToggle}
+            />
+            I am currently working in this role
+          </label>
         </div>
 
         <div className="form-input">

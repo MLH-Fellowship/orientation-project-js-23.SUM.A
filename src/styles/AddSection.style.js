@@ -19,7 +19,7 @@ export const AddSectionContainer = styled.section`
   .form-control {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
     width: 90%;
 
     .form-input {
@@ -36,12 +36,11 @@ export const AddSectionContainer = styled.section`
       fieldset {
         display: flex;
         border: 0;
-      }
+        padding: 0;
 
-      textarea {
-        border-radius: 10px;
-        height: 5rem;
-        resize: vertical;
+        select:not(:last-child) {
+          margin-right: 0.5rem;
+        }
       }
 
       .skill-err {
@@ -54,10 +53,10 @@ export const AddSectionContainer = styled.section`
       }
 
       input[type="text"],
-      select {
+      select,
+      textarea {
         height: 45px;
         padding-left: 20px;
-
         border-radius: 10px;
         border: none;
         font-size: 1.3rem;
@@ -67,6 +66,17 @@ export const AddSectionContainer = styled.section`
           outline: none;
           border: none;
         }
+      }
+
+      input[type="checkbox"] {
+        margin-right: 0.5rem;
+      }
+
+      textarea {
+        font-family: inherit;
+        height: 6rem;
+        resize: vertical;
+        padding-top: 0.6rem;
       }
     }
 
