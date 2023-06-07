@@ -1,7 +1,9 @@
 import React from "react";
 import PrintButton from "../components/ResumeToExport/PrintButton";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="App">
       <h1>Resume Builder</h1>
@@ -20,7 +22,9 @@ const Home = () => {
       <div className="resumeSection">
         <h2>Skills</h2>
         <p>Skill Placeholder</p>
-        <button>Add Skill</button>
+        <button onClick={() => navigate("/add-skill")} data-testid="addSkill">
+          Add Skill
+        </button>
         <br></br>
       </div>
       <br></br>
