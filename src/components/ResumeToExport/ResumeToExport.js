@@ -10,7 +10,7 @@ const ResumeToExport = React.forwardRef((props, ref) => {
       <h1>Resume</h1>
 
       <ul className={classes["section"]}>
-        <h2 className={classes["title-section"]}>Experience</h2>
+        <h2 className={classes["title-section"]}>EXPERIENCE</h2>
         <hr />
         {ctx.experience.map((exp) => {
           return (
@@ -35,7 +35,7 @@ const ResumeToExport = React.forwardRef((props, ref) => {
       </ul>
 
       <ul className={classes["section"]}>
-        <h2 className={classes["title-section"]}>Education</h2>
+        <h2 className={classes["title-section"]}>EDUCATION</h2>
         <hr />
         {ctx.education.map((edu) => {
           return (
@@ -59,7 +59,7 @@ const ResumeToExport = React.forwardRef((props, ref) => {
       </ul>
 
       <ul className={classes["section"]}>
-        <h2 className={classes["title-section"]}>Skills</h2>
+        <h2 className={classes["title-section"]}>SKILLS</h2>
         <hr />
         {ctx.skills.map((ski) => {
           return (
