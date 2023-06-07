@@ -1,4 +1,5 @@
 import React from "react";
+import PrintButton from "../components/ResumeToExport/PrintButton";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
         <br></br>
       </div>
       <br></br>
-      <button>Export</button>
+      <PrintButton />
     </div>
   );
 };
