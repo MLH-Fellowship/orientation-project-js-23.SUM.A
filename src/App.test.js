@@ -6,6 +6,10 @@ import AddSkill from "./pages/AddSkill";
 import AddExperience from "./pages/AddExperience";
 import { BrowserRouter } from "react-router-dom";
 
+import ResumeToExport from "./components/ResumeToExport/ResumeToExport";
+import ResumeContext, { ResumeContextProvider } from "./store/resume-context";
+import { useContext } from "react";
+
 describe("Home page test", () => {
   test("renders Home page", () => {
     render(
@@ -65,5 +69,40 @@ describe("Test Add Experience page", () => {
 
     const textElement = screen.getByText("I am currently working in this role");
     expect(textElement).toBeInTheDocument();
+  });
+});
+
+describe("Export resume as pdf", () => {
+  test("renders ResumeToExport component", () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+
+    const linkElement = screen.getByText("Export");
+    expect(linkElement).toBeInTheDocument();
+    fireEvent.click(linkElement);
+
+    const hiddenDiv = container.getElementsByClassName("hidden-div");
+    expect(hiddenDiv.length).toBeGreaterThan(0);
+    expect(hiddenDiv.length).toBeLessThan(2);
+
+    const pageElement = container.getElementsByClassName("page");
+    expect(pageElement.length).toBeGreaterThan(0);
+  });
+
+  test("renders ResumeToExport with resume context", () => {
+    render(
+      <ResumeContextProvider>
+        <ResumeToExport />
+      </ResumeContextProvider>
+    );
+
+    const javaSkill = screen.getByText(/JavaScript/);
+    expect(javaSkill).toBeInTheDocument();
+
+    const pythonSkill = screen.getByText(/Python/);
+    expect(pythonSkill).toBeInTheDocument();
   });
 });
