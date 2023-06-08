@@ -111,8 +111,9 @@ const AddExperience = () => {
       <h1>Add Experience</h1>
       <form className="form-control" onSubmit={handleSubmit}>
         <div className="form-input">
-          <label>Title</label>
+          <label htmlFor="title">Title</label>
           <input
+            id="title"
             type="text"
             name="title"
             value={experience.title}
@@ -120,8 +121,9 @@ const AddExperience = () => {
           />
         </div>
         <div className="form-input">
-          <label>Company</label>
+          <label htmlFor="company">Company</label>
           <input
+            id="company"
             type="text"
             name="company"
             value={experience.company}
@@ -144,6 +146,7 @@ const AddExperience = () => {
           <label>Start Date</label>
           <fieldset>
             <select
+              data-testid="startMonthSelect"
               name="startMonth"
               value={experience.startMonth}
               onChange={handleChange}
@@ -152,6 +155,7 @@ const AddExperience = () => {
               {renderMonthOptions()}
             </select>
             <select
+              data-testid="startYearSelect"
               name="startYear"
               value={experience.startYear}
               onChange={handleChange}
@@ -166,6 +170,7 @@ const AddExperience = () => {
           <label>End Date</label>
           <fieldset>
             <select
+              data-testid="endMonthSelect"
               name="endMonth"
               value={experience.endMonth}
               onChange={handleChange}
@@ -175,6 +180,7 @@ const AddExperience = () => {
               {renderMonthOptions()}
             </select>
             <select
+              data-testid="endYearSelect"
               name="endYear"
               value={experience.endYear}
               onChange={handleChange}
@@ -187,8 +193,9 @@ const AddExperience = () => {
         </div>
 
         <div className="form-input">
-          <label>Description</label>
+          <label htmlFor="description">Description</label>
           <textarea
+            id="description"
             name="description"
             value={experience.description}
             onChange={handleChange}
@@ -196,8 +203,9 @@ const AddExperience = () => {
         </div>
 
         <div className="form-input">
-          <label>Logo</label>
+          <label htmlFor="logo">Logo</label>
           <input
+            id="logo"
             type="text"
             name="logo"
             value={experience.logo}
