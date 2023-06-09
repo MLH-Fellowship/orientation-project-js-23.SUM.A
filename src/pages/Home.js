@@ -32,8 +32,6 @@ const Home = () => {
         <br></br>
       </div>
       <br></br>
-      <button>Export</button>
-
       <PrintButton />
     </div>
   );

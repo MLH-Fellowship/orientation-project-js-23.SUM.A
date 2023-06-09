@@ -1,6 +1,6 @@
 import {React,useState} from "react";
 import {useNavigate } from "react-router-dom";
-import axios from "axios";
+import {axios} from "axios";
 import { toast } from "react-toastify";
 
 const AddEducation = () => {
@@ -35,17 +35,17 @@ const AddEducation = () => {
   
     const handleGetEducation = async () => {
         axios
-          .get("http://127.0.0.1:5000/resume/education", 0)
+          .get("http://127.0.0.1:5000/resume/education", {params: {index:0}})
           .then((res) => {
             console.log(res.data);
-            navigate("/");
+            //navigate("/");
           })
           .catch((err) => toast.error(err?.message));
           axios
-          .get("http://127.0.0.1:5000/resume/education", 1)
+          .get("http://127.0.0.1:5000/resume/education", {params: {index:1}})
           .then((res) => {
             console.log(res.data);
-            navigate("/");
+            //navigate("/");
           })
           .catch((err) => toast.error(err?.message));
       };
@@ -54,7 +54,7 @@ const AddEducation = () => {
           .post("http://127.0.0.1:5000/resume/education",formData )
           .then((res) => {
             console.log(res.data);
-            navigate("/");
+            //navigate("/");
           })
           .catch((err) => toast.error(err?.message));
       };
