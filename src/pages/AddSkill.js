@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { skillImage } from "../service";
 import {axios} from "axios";
 import { toast } from "react-toastify";
-import { AddSkillContainer } from "../styles/AddSkill.style";
+import { AddSectionContainer } from "../styles/AddSection.style";
+import { SkillContainer } from "../styles/AddSkill.style";
 
 const AddSkill = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const AddSkill = () => {
     }
   };
   return (
-    <AddSkillContainer>
+    <AddSectionContainer>
       <h1 data-testid="headSkill">Add Skill Page</h1>
       <form className="form-control" onSubmit={(e) => handleAddSkill(e)}>
         <div className="form-input">
@@ -91,7 +92,7 @@ const AddSkill = () => {
 
         <div className="form-input">
           <label>Select Logo</label>
-          <div className="skill-container">
+          <SkillContainer>
             {skillImage.map(({ name, image, id }) => (
               <div
                 className={
@@ -116,17 +117,17 @@ const AddSkill = () => {
                 <img src={image} alt={name} />
               </div>
             ))}
-          </div>
+          </SkillContainer>
           {errorData?.logo && (
             <span className="err skill-err">Select a skill Logo</span>
           )}
         </div>
 
-        <button type="submit" className="btn-skill">
+        <button type="submit" className="btn-add">
           Submit
         </button>
       </form>
-    </AddSkillContainer>
+    </AddSectionContainer>
   );
 };
 

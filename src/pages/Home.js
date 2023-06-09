@@ -14,7 +14,12 @@ const Home = () => {
       <div className="resumeSection">
         <h2>Experience</h2>
         <p>Experience Placeholder</p>
-        <button>Add Experience</button>
+        <button
+          onClick={() => navigate("/add-experience")}
+          data-testid="addExperience"
+        >
+          Add Experience
+        </button>
         <br></br>
       </div>
       <div className="resumeSection">
