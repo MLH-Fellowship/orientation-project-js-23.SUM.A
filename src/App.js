@@ -3,6 +3,7 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
+import AddExperience from "./pages/AddExperience";
 import AddSkill from "./pages/AddSkill";
 import EditSkill from "./pages/EditSkill";
 
@@ -13,6 +14,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/add-experience" element={<AddExperience />} />
         <Route path="/add-skill" element={<AddSkill />} />
         <Route path="/add-skill/:index" element={<EditSkill />} />
       </Routes>
