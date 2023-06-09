@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Education from "./pages/Education";
+import Education from "./pages/AddEducation";
 import "./App.css";
 
 function App() {
