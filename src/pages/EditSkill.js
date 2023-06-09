@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { skillImage } from "../service";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AddSkillContainer } from "../styles/AddSkill.style";
+import { EditSkillHook } from "../hooks/EditSkillHook";
 
 const EditSkill = () => {
   const baseUrl = "http://127.0.0.1:5000/resume/skill";
   const { index } = useParams();
-  const navigate = useNavigate();
   const [selectedSkill, setSelectedSkill] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -32,17 +32,9 @@ const EditSkill = () => {
 
   const handleUpdateSkill = async (event) => {
     event.preventDefault();
-
+    const url = `${baseUrl}?index=${index}`;
     if (formData?.logo && formData?.name && formData?.proficiency) {
-      axios
-        .put(`${baseUrl}?index=${index}`, {
-          ...formData,
-        })
-        .then((res) => {
-          console.log(res.data);
-          navigate("/");
-        })
-        .catch((err) => toast.error(err?.message));
+      EditSkillHook(formData, url);
     } else {
       // Form validation notice of error
       if (formData?.logo === "")

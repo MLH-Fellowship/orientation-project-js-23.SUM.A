@@ -9,6 +9,17 @@ import ResumeToExport from "./components/ResumeToExport/ResumeToExport";
 import ResumeContext, { ResumeContextProvider } from "./store/resume-context";
 import { useContext } from "react";
 import EditSkill from "./pages/EditSkill";
+import axios from "axios";
+
+// jest.spyOn(console, "error").mockImplementation(() => {});
+
+// Axios mock usinf jest
+// This mocks the get method in axios
+// jest.mock("axios", () => ({
+//   ...jest.requireActual("axios"),
+//   get: jest.fn(),
+//   put: jest.fn(),
+// }));
 
 describe("Home page test", () => {
   test("renders Home page", () => {
@@ -95,4 +106,6 @@ describe("Test Edit Skill page", () => {
     const textElement = screen.getByTestId("headSkill");
     expect(textElement).toBeInTheDocument();
   });
+
+  // test("update skill", () => {});
 });
