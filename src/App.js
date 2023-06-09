@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import AddSkill from "./pages/AddSkill";
+import EditSkill from "./pages/EditSkill";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add-skill" element={<AddSkill />} />
+        <Route path="/add-skill" element={<EditSkill />} />
       </Routes>
     </>
   );
