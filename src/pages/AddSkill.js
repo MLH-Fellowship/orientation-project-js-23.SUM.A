@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { skillImage } from "../service";
-import axios from "axios";
+import {axios} from "axios";
 import { toast } from "react-toastify";
 import { AddSectionContainer } from "../styles/AddSection.style";
 import { SkillContainer } from "../styles/AddSkill.style";
