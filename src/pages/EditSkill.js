@@ -68,7 +68,7 @@ const EditSkill = () => {
         }
       });
     })();
-  }, []);
+  }, [index]);
 
   return (
     <AddSkillContainer>

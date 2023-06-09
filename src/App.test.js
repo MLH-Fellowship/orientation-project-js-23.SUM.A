@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import ResumeToExport from "./components/ResumeToExport/ResumeToExport";
 import ResumeContext, { ResumeContextProvider } from "./store/resume-context";
 import { useContext } from "react";
+import EditSkill from "./pages/EditSkill";
 
 describe("Home page test", () => {
   test("renders Home page", () => {
@@ -80,5 +81,18 @@ describe("Export resume as pdf", () => {
 
     const pythonSkill = screen.getByText(/Python/);
     expect(pythonSkill).toBeInTheDocument();
+  });
+});
+
+describe("Test Edit Skill page", () => {
+  test("render Edit screen page", () => {
+    render(
+      <BrowserRouter>
+        <EditSkill />
+      </BrowserRouter>
+    );
+
+    const textElement = screen.getByTestId("headSkill");
+    expect(textElement).toBeInTheDocument();
   });
 });
