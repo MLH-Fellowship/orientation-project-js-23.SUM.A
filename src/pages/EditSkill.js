@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import { AddSkillContainer } from "../styles/AddSkill.style";
 
 const EditSkill = () => {
+  const baseUrl = "http://127.0.0.1:5000/resume/skill";
   const { index } = useParams();
-
   const navigate = useNavigate();
   const [selectedSkill, setSelectedSkill] = useState("");
   const [formData, setFormData] = useState({
@@ -30,12 +30,12 @@ const EditSkill = () => {
     }));
   };
 
-  const handleAddSkill = async (event) => {
+  const handleUpdateSkill = async (event) => {
     event.preventDefault();
 
     if (formData?.logo && formData?.name && formData?.proficiency) {
       axios
-        .post(`http://127.0.0.1:5000/resume/skill?index=${index}`, {
+        .put(`${baseUrl}?index=${index}`, {
           ...formData,
         })
         .then((res) => {
@@ -58,25 +58,22 @@ const EditSkill = () => {
     // Get skill to render in form
     // If successfull
     (async () => {
-      axios
-        .get(`http://127.0.0.1:5000/resume/skill?index=${index}`)
-        .then((res) => {
-          if (res.data["Server Error"]) toast.error(res.data["Server Error"]);
-          else {
-            console.log(res.data);
-            setFormData({
-              ...res.data,
-            });
-            setSelectedSkill(res.data?.name);
-          }
-        });
+      axios.get(`${baseUrl}?index=${index}`).then((res) => {
+        if (res.data["Server Error"]) toast.error(res.data["Server Error"]);
+        else {
+          setFormData({
+            ...res.data,
+          });
+          setSelectedSkill(res.data?.logo);
+        }
+      });
     })();
   }, []);
 
   return (
     <AddSkillContainer>
       <h1 data-testid="headSkill">Edit Skill Page</h1>
-      <form className="form-control" onSubmit={(e) => handleAddSkill(e)}>
+      <form className="form-control" onSubmit={(e) => handleUpdateSkill(e)}>
         <div className="form-input">
           <label htmlFor="name">Skill</label>
           <input
