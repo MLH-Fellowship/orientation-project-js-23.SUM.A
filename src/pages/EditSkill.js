@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { skillImage } from "../service";
 import axios from "axios";
@@ -35,7 +35,7 @@ const EditSkill = () => {
 
     if (formData?.logo && formData?.name && formData?.proficiency) {
       axios
-        .post(`http://127.0.0.1:5000/resume/skill?index={index}`, {
+        .post(`http://127.0.0.1:5000/resume/skill?index=${index}`, {
           ...formData,
         })
         .then((res) => {
@@ -44,6 +44,7 @@ const EditSkill = () => {
         })
         .catch((err) => toast.error(err?.message));
     } else {
+      // Form validation notice of error
       if (formData?.logo === "")
         setErrorData((prev) => ({ ...prev, logo: true }));
       if (formData?.name === "")
@@ -52,9 +53,29 @@ const EditSkill = () => {
         setErrorData((prev) => ({ ...prev, proficiency: true }));
     }
   };
+
+  useEffect(() => {
+    // Get skill to render in form
+    // If successfull
+    (async () => {
+      axios
+        .get(`http://127.0.0.1:5000/resume/skill?index=${index}`)
+        .then((res) => {
+          if (res.data["Server Error"]) toast.error(res.data["Server Error"]);
+          else {
+            console.log(res.data);
+            setFormData({
+              ...res.data,
+            });
+            setSelectedSkill(res.data?.name);
+          }
+        });
+    })();
+  }, []);
+
   return (
     <AddSkillContainer>
-      <h1 data-testid="headSkill">Add Skill Page</h1>
+      <h1 data-testid="headSkill">Edit Skill Page</h1>
       <form className="form-control" onSubmit={(e) => handleAddSkill(e)}>
         <div className="form-input">
           <label htmlFor="name">Skill</label>
@@ -99,11 +120,11 @@ const EditSkill = () => {
             {skillImage.map(({ name, image, id }) => (
               <div
                 className={
-                  selectedSkill === id ? "selected-skill skill" : "skill"
+                  selectedSkill === name ? "selected-skill skill" : "skill"
                 }
                 key={id}
                 onClick={() => {
-                  setSelectedSkill(id);
+                  setSelectedSkill(name);
                   setFormData((prevState) => ({
                     ...prevState,
                     logo: name,
@@ -113,7 +134,7 @@ const EditSkill = () => {
               >
                 {" "}
                 <span
-                  style={{ display: selectedSkill === id ? "none" : "block" }}
+                  style={{ display: selectedSkill === name ? "none" : "block" }}
                 >
                   {name}
                 </span>
