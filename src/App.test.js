@@ -1,15 +1,19 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+
+import AddSkill from "./pages/AddSkill";
+
 import axios from "axios";
+
 
 import Home from "./pages/Home";
 import AddSkill from "./pages/AddSkill";
 import AddExperience from "./pages/AddExperience";
 import { BrowserRouter } from "react-router-dom";
-
 import ResumeToExport from "./components/ResumeToExport/ResumeToExport";
 import ResumeContext, { ResumeContextProvider } from "./store/resume-context";
 import { useContext } from "react";
+import EditSkill from "./pages/EditSkill";
 
 jest.mock("axios");
 
@@ -157,5 +161,18 @@ describe("Export resume as pdf", () => {
 
     const pythonSkill = screen.getByText(/Python/);
     expect(pythonSkill).toBeInTheDocument();
+  });
+});
+
+describe("Test Edit Skill page", () => {
+  test("render Edit screen page", () => {
+    render(
+      <BrowserRouter>
+        <EditSkill />
+      </BrowserRouter>
+    );
+
+    const textElement = screen.getByTestId("headSkill");
+    expect(textElement).toBeInTheDocument();
   });
 });

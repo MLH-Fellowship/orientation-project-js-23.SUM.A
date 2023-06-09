@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { skillImage } from "../service";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { AddSectionContainer } from "../styles/AddSection.style";
-import { SkillContainer } from "../styles/AddSkill.style";
+import { AddSkillContainer } from "../styles/AddSkill.style";
 
-const AddSkill = () => {
+const EditSkill = () => {
   const navigate = useNavigate();
+
+  const baseUrl = "http://127.0.0.1:5000/resume/skill";
+  const { index } = useParams();
   const [selectedSkill, setSelectedSkill] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -29,17 +31,20 @@ const AddSkill = () => {
     }));
   };
 
-  const handleAddSkill = async (event) => {
+  const handleUpdateSkill = async (event) => {
     event.preventDefault();
-
+    const url = `${baseUrl}?index=${index}`;
     if (formData?.logo && formData?.name && formData?.proficiency) {
       axios
-        .post("http://127.0.0.1:5000/resume/skill", { ...formData })
+        .put(url, {
+          ...formData,
+        })
         .then((res) => {
-          navigate("/");
+          return navigate("/");
         })
         .catch((err) => toast.error(err?.message));
     } else {
+      // Form validation notice of error
       if (formData?.logo === "")
         setErrorData((prev) => ({ ...prev, logo: true }));
       if (formData?.name === "")
@@ -48,10 +53,27 @@ const AddSkill = () => {
         setErrorData((prev) => ({ ...prev, proficiency: true }));
     }
   };
+
+  useEffect(() => {
+    // Get skill to render in form
+    // If successfull
+    (async () => {
+      axios.get(`${baseUrl}?index=${index}`).then((res) => {
+        if (res.data["Server Error"]) toast.error(res.data["Server Error"]);
+        else {
+          setFormData({
+            ...res.data,
+          });
+          setSelectedSkill(res.data?.logo);
+        }
+      });
+    })();
+  }, [index]);
+
   return (
-    <AddSectionContainer>
-      <h1 data-testid="headSkill">Add Skill Page</h1>
-      <form className="form-control" onSubmit={(e) => handleAddSkill(e)}>
+    <AddSkillContainer>
+      <h1 data-testid="headSkill">Edit Skill Page</h1>
+      <form className="form-control" onSubmit={(e) => handleUpdateSkill(e)}>
         <div className="form-input">
           <label htmlFor="name">Skill</label>
           <input
@@ -91,15 +113,15 @@ const AddSkill = () => {
 
         <div className="form-input">
           <label>Select Logo</label>
-          <SkillContainer>
+          <div className="skill-container">
             {skillImage.map(({ name, image, id }) => (
               <div
                 className={
-                  selectedSkill === id ? "selected-skill skill" : "skill"
+                  selectedSkill === name ? "selected-skill skill" : "skill"
                 }
                 key={id}
                 onClick={() => {
-                  setSelectedSkill(id);
+                  setSelectedSkill(name);
                   setFormData((prevState) => ({
                     ...prevState,
                     logo: name,
@@ -109,25 +131,25 @@ const AddSkill = () => {
               >
                 {" "}
                 <span
-                  style={{ display: selectedSkill === id ? "none" : "block" }}
+                  style={{ display: selectedSkill === name ? "none" : "block" }}
                 >
                   {name}
                 </span>
                 <img src={image} alt={name} />
               </div>
             ))}
-          </SkillContainer>
+          </div>
           {errorData?.logo && (
             <span className="err skill-err">Select a skill Logo</span>
           )}
         </div>
 
-        <button type="submit" className="btn-add">
+        <button type="submit" className="btn-skill" data-testid="editSkill">
           Submit
         </button>
       </form>
-    </AddSectionContainer>
+    </AddSkillContainer>
   );
 };
 
-export default AddSkill;
+export default EditSkill;
