@@ -35,7 +35,6 @@ const AddSkill = () => {
       axios
         .post("http://127.0.0.1:5000/resume/skill", { ...formData })
         .then((res) => {
-          console.log(res.data);
           navigate("/");
         })
         .catch((err) => toast.error(err?.message));

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { skillImage } from "../service";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AddSkillContainer } from "../styles/AddSkill.style";
 
 const EditSkill = () => {
+  const { index } = useParams();
+
   const navigate = useNavigate();
   const [selectedSkill, setSelectedSkill] = useState("");
   const [formData, setFormData] = useState({
@@ -33,7 +35,9 @@ const EditSkill = () => {
 
     if (formData?.logo && formData?.name && formData?.proficiency) {
       axios
-        .post("http://127.0.0.1:5000/resume/skill", { ...formData })
+        .post(`http://127.0.0.1:5000/resume/skill?index={index}`, {
+          ...formData,
+        })
         .then((res) => {
           console.log(res.data);
           navigate("/");

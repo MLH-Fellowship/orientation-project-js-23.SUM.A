@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add-skill" element={<AddSkill />} />
-        <Route path="/add-skill" element={<EditSkill />} />
+        <Route path="/add-skill/:index" element={<EditSkill />} />
       </Routes>
     </>
   );
