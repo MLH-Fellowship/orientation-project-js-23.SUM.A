@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { skillImage } from "../service";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AddSkillContainer } from "../styles/AddSkill.style";
-import { EditSkillHook } from "../hooks/EditSkillHook";
 
 const EditSkill = () => {
+  const navigate = useNavigate();
+
   const baseUrl = "http://127.0.0.1:5000/resume/skill";
   const { index } = useParams();
   const [selectedSkill, setSelectedSkill] = useState("");
@@ -34,7 +35,14 @@ const EditSkill = () => {
     event.preventDefault();
     const url = `${baseUrl}?index=${index}`;
     if (formData?.logo && formData?.name && formData?.proficiency) {
-      EditSkillHook(formData, url);
+      axios
+        .put(url, {
+          ...formData,
+        })
+        .then((res) => {
+          return navigate("/");
+        })
+        .catch((err) => toast.error(err?.message));
     } else {
       // Form validation notice of error
       if (formData?.logo === "")
@@ -136,7 +144,7 @@ const EditSkill = () => {
           )}
         </div>
 
-        <button type="submit" className="btn-skill">
+        <button type="submit" className="btn-skill" data-testid="editSkill">
           Submit
         </button>
       </form>
