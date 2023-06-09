@@ -10,6 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 import ResumeToExport from "./components/ResumeToExport/ResumeToExport";
 import ResumeContext, { ResumeContextProvider } from "./store/resume-context";
 import { useContext } from "react";
+import CustomDropzone from "./components/Dropzone/CustomDropzone";
 
 jest.mock("axios");
 
@@ -157,5 +158,25 @@ describe("Export resume as pdf", () => {
 
     const pythonSkill = screen.getByText(/Python/);
     expect(pythonSkill).toBeInTheDocument();
+  });
+});
+
+describe("Drag and drop component", () => {
+  test("renders drag and drop compnent", () => {
+    render(<CustomDropzone />);
+
+    const textEl = screen.getByText(
+      /Drag and drop a file here, or click to select a file/
+    );
+    expect(textEl).toBeInTheDocument();
+  });
+});
+
+describe("Drag and drop component", () => {
+  test("does not render upload button", () => {
+    render(<CustomDropzone />);
+
+    const uploadBtn = screen.queryByText(/Confirm upload/);
+    expect(uploadBtn).not.toBeInTheDocument();
   });
 });
